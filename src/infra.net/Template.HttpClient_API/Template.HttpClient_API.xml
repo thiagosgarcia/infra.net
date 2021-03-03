@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Template.HttpClient_API</name>
+    </assembly>
+    <members>
+        <member name="M:Template.HttpClient_API.Controllers.EntityController.Get">
+            <summary>
+            Exemplo de erro
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Template.HttpClient_API.Controllers.EntityController.Slow(System.Int32)">
+            <summary>
+            Exemplo lentidão para tratar com Polly
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Template.HttpClient_API.Controllers.EntityHttpClientController.Get(System.String,System.String)">
+            <summary>
+            Exemplo sem cache
+            </summary>
+            <param name="filter"></param>
+            <param name="orderBy"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Template.HttpClient_API.Controllers.EntityHttpClientController.Cache(System.String,System.String)">
+            <summary>
+            Exemplo com cache
+            </summary>
+            <remarks>
+            Sample requests:
+            
+                GET /EntityHttpClient/ModelEntity/Cache?filter=itau
+            
+            </remarks>
+            <param name="filter"></param>
+            <param name="orderBy"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

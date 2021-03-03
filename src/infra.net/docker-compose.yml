@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  template.httpclient_api:
+    image: ${DOCKER_REGISTRY-}templatehttpclientapi
+    build:
+      context: .
+      dockerfile: Template.HttpClient_API/Dockerfile
+
+  template.versioning_api:
+    image: ${DOCKER_REGISTRY-}templateversioningapi
+    build:
+      context: .
+      dockerfile: Template.Versioning_API/Dockerfile
+

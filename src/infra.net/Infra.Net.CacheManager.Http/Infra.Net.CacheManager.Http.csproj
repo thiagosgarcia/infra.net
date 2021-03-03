@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <Description>HttpCacheManager - Extensão de CacheManager para HTTP</Description>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <FileVersion>0.0.1.0</FileVersion>
+    <Version>0.0.1.0</Version>
+    <AssemblyName />
+    <Authors>UnitedHealth Group</Authors>
+    <PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Infra.Net.Extensions" Version="0.0.1" />
+    <PackageReference Include="Infra.Net.CacheManager" Version="0.0.1" />
+    <PackageReference Include="Infra.Net.HttpClientManager" Version="0.0.1" />
+    <PackageReference Include="System.Data.HashFunction.CityHash" Version="2.0.0" />
+    <PackageReference Include="System.Data.HashFunction.Core" Version="2.0.0" />
+    <PackageReference Include="elastic.apm" Version="1.8.0" />
+    <PackageReference Include="elastic.apm.aspnetcore" Version="1.8.0" />
+    <PackageReference Include="elastic.apm.netcoreall" Version="1.8.0" />
+  </ItemGroup>
+
+</Project>
