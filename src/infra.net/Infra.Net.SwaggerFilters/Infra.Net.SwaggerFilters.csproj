@@ -7,12 +7,17 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <Description>Filtros Swagger para uso geral. Swagger v5+</Description>
-    <AssemblyVersion>0.0.1.0</AssemblyVersion>
-    <FileVersion>0.0.1.0</FileVersion>
-    <Version>0.0.1</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0</Version>
     <AssemblyName />
     <Authors>Thiago Garcia</Authors>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <projectUrl>https://github.com/thiagosgarcia/infra.net</projectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/thiagosgarcia/infra.net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/thiagosgarcia/infra.net</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

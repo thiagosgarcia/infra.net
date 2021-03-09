@@ -38,11 +38,11 @@ steps:
     command: 'build'
     projects: 'src/infra.net/Infra.Net.LogManager/Infra.Net.LogManager.csproj'
     arguments: '-v d --no-restore'
-
-- task: DotNetCoreCLI@2
+    
+- task: NuGetCommand@2
   displayName: 'push'
   inputs:
     command: 'push'
     packagesToPush: '$(System.DefaultWorkingDirectory)/**/*.nupkg;!$(System.DefaultWorkingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: '27a5d52e-704b-436b-90a4-e31ee9bcbe49/72b8efd8-6405-44f9-ace8-4c9b4967ae26'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nuget.org'
