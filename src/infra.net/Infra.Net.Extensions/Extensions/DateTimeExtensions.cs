@@ -125,9 +125,9 @@ namespace Infra.Net.Extensions.Extensions
 
         public static (DateTime, DateTime) ConvertFromUTC(DateTime time1, DateTime? time2 = null, DateTime? now = null, DateTime? utcNow = null)
         {
-            now = now ?? DateTime.Now;
-            utcNow = utcNow ?? now.Value.ToUniversalTime();
-            time2 = time2 ?? time1;
+            now ??= DateTime.Now;
+            utcNow ??= now.Value.ToUniversalTime();
+            time2 ??= time1;
             if (time1.CompareTo(time2) == 0) 
             {
                 var isToday = time1.ThatDay().CompareTo(now?.ThatDay()) == 0;

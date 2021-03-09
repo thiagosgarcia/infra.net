@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Infra.Net.Extensions.Extensions;
 using Xunit;
 using Xunit2.Should;
@@ -369,22 +370,13 @@ namespace Infra.Net.Extensions.Tests.Extensions
         {
             DateTime.Parse(date).NextDay().ShouldNotBe(DateTime.Parse(expected));
         }
-        [Theory]
-        [InlineData("2019-01-01 15:02", "2019-01-01 17:02")]   
-        [InlineData("2019-06-01 15:02", "2019-06-01 18:02")]    
+        [InlineData("2019-01-01 15:02:00 -03:00", "2019-01-01 17:02")]   
+        [InlineData("2019-06-01 15:02:00 -03:00", "2019-06-01 18:02")]    
         public void ToUniversalTime(string date, string expected)
         {
             DateTime.Parse(date).ToUniversalTime().ShouldBe(DateTime.Parse(expected));
             TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse(date), TimeZoneInfo.Local).ShouldBe(DateTime.Parse(expected));
             TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse(date), TimeZoneInfo.Utc).ShouldNotBe(DateTime.Parse(expected));
-        }
-        [Theory]
-        [InlineData("2019-01-01 15:02", "2019-01-01 17:02")]   
-        [InlineData("2019-06-01 15:02", "2019-06-01 18:02")]    
-        public void FromUniversalTime(string expected, string date)
-        {
-            TimeZoneInfo.ConvertTimeFromUtc(DateTime.Parse(date), TimeZoneInfo.Local).ShouldBe(DateTime.Parse(expected));
-            TimeZoneInfo.ConvertTimeFromUtc(DateTime.Parse(date), TimeZoneInfo.Utc).ShouldNotBe(DateTime.Parse(expected));
         }
         [Theory]
         [InlineData("2019-01-01", "2019-01-01", "2018-12-31 23:55:00", "2019-01-01 01:55:00", "2018-12-31", "2018-12-31")]

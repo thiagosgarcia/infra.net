@@ -26,9 +26,9 @@
     </PackageReference>
     <PackageReference Include="xunit2.should" Version="2.2.0" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Infra.Net\Infra.Net.Extensions\Infra.Net.Extensions.csproj" />
+    <ProjectReference Include="..\..\infra.net\Infra.Net.Extensions\Infra.Net.Extensions.csproj" />
   </ItemGroup>
 
 </Project>
