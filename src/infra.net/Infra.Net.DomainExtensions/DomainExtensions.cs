@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Infra.Net.Extensions.Extensions;
 using Infra.Net.Extensions.Helpers.Domain;
 
-namespace Infra.Net.Extensions.Extensions
+namespace Infra.Net.DomainExtensions
 {
     public static class DomainExtensions
     {

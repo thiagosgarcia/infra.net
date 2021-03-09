@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Infra.Net\Infra.Net.Extensions\Infra.Net.Extensions.csproj" />
+    <ProjectReference Include="..\..\infra.net\Infra.Net.DomainExtensions\Infra.Net.DomainExtensions.csproj" />
   </ItemGroup>
 
 </Project>

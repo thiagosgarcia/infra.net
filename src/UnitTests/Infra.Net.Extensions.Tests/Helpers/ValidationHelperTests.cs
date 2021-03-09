@@ -1,4 +1,5 @@
-﻿using Infra.Net.Extensions.Extensions;
+﻿using Infra.Net.DomainExtensions;
+using Infra.Net.Extensions.Extensions;
 using Xunit;
 using Xunit2.Should;
 
