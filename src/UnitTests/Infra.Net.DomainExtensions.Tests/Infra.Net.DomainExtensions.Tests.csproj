@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Infra.Net\Infra.Net.Extensions\Infra.Net.Extensions.csproj" />
+    <ProjectReference Include="..\..\infra.net\Infra.Net.DomainExtensions\Infra.Net.DomainExtensions.csproj" />
   </ItemGroup>
 
 </Project>

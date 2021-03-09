@@ -1,12 +1,17 @@
 ### INFRA(structure).NET(5)
 
+ 
+
 # Infra.NET
+![Infra.NET](https://dev.azure.com/thiagosgarcia/Infra.Net/_apis/build/status/Infra.NET?api-version=6.0-preview.1)
 
 The goal of this project is to have a swiss knife for any .NETCore project that helps you to keep you head on business, and forget about monitoring, logging, auditing, managing HttpClients, etc. It was initially designed for web apps, but it works with any flavor.
 
 To summarize: a bunch of helpers and extensions that makes me a little more happy in day by day work. Hope it does the same to you =)
 
 ## Infra.Net.HttpClientManager
+![HttpClientManager](https://dev.azure.com/thiagosgarcia/Infra.Net/_apis/build/status/HttpClientManager?api-version=6.0-preview.1)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.HttpClientManager)
 
 My favorite son.
 
@@ -34,6 +39,10 @@ Usage:
 More details, docs and how to take advantage of Polly and ElasticAPM soon.
 
 ## Infra.Net.CacheManager
+![CacheManager](https://dev.azure.com/thiagosgarcia/Infra.Net/_apis/build/status/CacheManager?api-version=6.0-preview.1)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.CacheManager)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.CacheManager.Http?label=CacheManager.Http)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.CacheManager.Memcached?label=CacheManager.Memcached)
 
 My third favorite son.
 
@@ -67,6 +76,10 @@ And, of course, if you still think this is not woth it, there's the beloved `Cac
 ```
 
 ## Infra.Net.LogManager
+![CacheManager](https://dev.azure.com/thiagosgarcia/Infra.Net/_apis/build/status/LogManager?api-version=6.0-preview.1)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.LogManager)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.LogManager.DbExtensions?label=LogManager.DbExtensions)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.LogManager.WebExtensions?label=LogManager.WebExtensions)
 
 This is a cool - and production ready - abstraction of Serilog's logging management, that handles automatic tracing and auditing generating logs based on dependency injection.
 
@@ -141,6 +154,8 @@ More on that soon.
 
 
 ## Infra.Net.Extensions
+![Extensions](https://dev.azure.com/thiagosgarcia/Infra.Net/_apis/build/status/Extensions?api-version=6.0-preview.1)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.Extensions)
 
 This project has some cool extensions that might be useful in some cases. E.g.:
 
@@ -155,21 +170,30 @@ string.ToNormalForm(); //securely removes all special characters from a string: 
 ```
 
 ## Infra.Net.DataAccess.MongoDb
+![MongoDb](https://dev.azure.com/thiagosgarcia/Infra.Net/_apis/build/status/MongoDb?api-version=6.0-preview.1)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.DataAccess.MongoDb?label=MongoDb)
+![http://nuget.org/](https://img.shields.io/nuget/v/Infra.Net.DataAccess.MongoDb.WebHelpers?label=WebHelpers)
 
 MongoDB driver for .NET with some abstractions. Some cool stuff can be made using `Infra.Net.DataAccess.MongoDb.WebHelpers` as well. 
 
 Docs soon.
 
 ## Infra.Net.DomainExtensions
+![DomainExtensions](https://dev.azure.com/thiagosgarcia/Infra.Net/_apis/build/status/DomainExtensions?api-version=6.0-preview.1)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.DomainExtensions)
 
 Some useful extensions for countrywide contexts (mainly for BR - more to come)
 
 ## Infra.Net.Helpers
+![Helpers](https://dev.azure.com/thiagosgarcia/Infra.Net/_apis/build/status/Helpers?api-version=6.0-preview.1)
+![nuget](https://img.shields.io/nuget/v/Infra.Net.Helpers)
 
 HttpClient helpers
 
 
 ## Infra.Net.SwaggerFilters
+![SwaggerFilters](https://dev.azure.com/thiagosgarcia/Infra.Net/_apis/build/status/SwaggerFilters?api-version=6.0-preview.1) 
+![nuget](https://img.shields.io/nuget/v/Infra.Net.SwaggerFilters)
 
 Swagger filters for general use. Optimized for Swagger v5+
 
@@ -178,9 +202,5 @@ Swagger filters for general use. Optimized for Swagger v5+
 Comming soon
 
 ## How to use with Polly
-
-Comming soon
-
-## How to use with ElasticAPM
 
 Comming soon

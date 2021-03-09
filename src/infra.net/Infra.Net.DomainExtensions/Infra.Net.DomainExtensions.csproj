@@ -7,9 +7,9 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <Description>Extensões de domínio</Description>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.2</Version>
     <AssemblyName />
     <Authors>@thiagosgarcia</Authors>
     <PackageReleaseNotes></PackageReleaseNotes>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Infra.Net.Extensions" Version="0.0.1" />
+    <PackageReference Include="Infra.Net.Extensions" Version="1.0.0" />
   </ItemGroup>
-  
+
 </Project>

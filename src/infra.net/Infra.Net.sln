@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Net.Extensions.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Net.DomainExtensions", "Infra.Net.DomainExtensions\Infra.Net.DomainExtensions.csproj", "{FDA5A347-A5E6-4880-BF01-1073AE5611CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Net.DomainExtensions.Tests", "..\UnitTests\Infra.Net.DomainExtensions.Tests\Infra.Net.DomainExtensions.Tests.csproj", "{446EE974-E681-4832-B85E-2B1883EAEC9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{FDA5A347-A5E6-4880-BF01-1073AE5611CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDA5A347-A5E6-4880-BF01-1073AE5611CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDA5A347-A5E6-4880-BF01-1073AE5611CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{446EE974-E681-4832-B85E-2B1883EAEC9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{446EE974-E681-4832-B85E-2B1883EAEC9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{446EE974-E681-4832-B85E-2B1883EAEC9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{446EE974-E681-4832-B85E-2B1883EAEC9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,6 +160,7 @@ Global
 		{1798CAC2-3E60-4371-B9D7-EBF31B8A40EC} = {29C31F9D-E5E3-4C2C-ADEA-E9C7F5240AFD}
 		{AC74EFBB-556F-4497-9428-0BDA18F95A14} = {1709A315-E0AF-4225-8E13-069CE4D34235}
 		{FDA5A347-A5E6-4880-BF01-1073AE5611CD} = {63B83451-80E6-4E32-BDCB-AF7F27F3DEBB}
+		{446EE974-E681-4832-B85E-2B1883EAEC9F} = {1709A315-E0AF-4225-8E13-069CE4D34235}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {568E855C-3F6A-4AD5-B184-A1028F64681C}
