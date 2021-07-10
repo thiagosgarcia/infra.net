@@ -10,7 +10,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Elastic.Apm.AspNetCore;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc.Versioning.Conventions;
 using Newtonsoft.Json;
@@ -157,13 +156,6 @@ namespace Template.HttpClient_API
                 pathBase = (Configuration["AppConfig:PathBase"] ?? "").Split(",")[0] + "/";
                 app.UseHsts();
             }
-            app.UseElasticApm(Configuration,
-                new Elastic.Apm.DiagnosticSource.HttpDiagnosticsSubscriber(),
-                new Elastic.Apm.EntityFrameworkCore.EfCoreDiagnosticsSubscriber(),
-                new Elastic.Apm.Mongo.MongoDiagnosticsSubscriber(),
-                new Elastic.Apm.AspNetCore.DiagnosticListener.AspNetCoreDiagnosticSubscriber(),
-                new Elastic.Apm.AspNetCore.DiagnosticListener.AspNetCoreErrorDiagnosticsSubscriber());
-
             //TODO Unhandled exception middleware
             app.UseLogMiddleware();
             app.UseHttpsRedirection();

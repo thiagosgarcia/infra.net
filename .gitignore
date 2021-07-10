@@ -695,3 +695,5 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,csharp,visualstudio,visualstudiocode,windows,node,react,powershell
 
 appsettings.Development.json
+
+src/infra.net/.idea/.idea.Infra.Net/.idea/

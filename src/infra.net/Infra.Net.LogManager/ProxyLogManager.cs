@@ -5,8 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Elastic.Apm;
-using Elastic.Apm.Api;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Serilog;
@@ -31,8 +29,6 @@ namespace Infra.Net.LogManager
         public ILogger Logger { get; set; }
         public List<string> BlockedNames { get; set; }
         public bool SerializeData { get; set; }
-        public bool TraceEnabled { get; set; }
-        public string TraceType { get; set; } = ApiConstants.TypeRequest;
 
         private Predicate<MethodInfo> _predicateFilter;
         private LogEventLevel DefaultLevel { get; set; } = LogEventLevel.Information;
@@ -45,18 +41,6 @@ namespace Infra.Net.LogManager
 
         [DebuggerStepThrough]
         protected override object Invoke(MethodInfo methodInfo, object[] args)
-        {
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return ExecuteInvoker(methodInfo, args);
-
-            return Elastic.Apm.Agent.Tracer
-                .CurrentTransaction.CaptureSpan(
-                    $"{methodInfo?.DeclaringType?.Name}::{methodInfo?.Name}", TraceType, (t) =>
-                    ExecuteInvoker(methodInfo, args), action: ApiConstants.ActionExec);
-        }
-
-        [DebuggerStepThrough]
-        private object ExecuteInvoker(MethodInfo methodInfo, object[] args)
         {
             try
             {
@@ -109,8 +93,6 @@ namespace Infra.Net.LogManager
             DecoratedInterface = decoratedInterface;
             Logger = logger;
             SerializeData = Convert.ToBoolean(configuration["Logging:SerializeData"] ?? "false"); // We can turn off data serialization in appSettings
-            TraceEnabled = Convert.ToBoolean(configuration["Logging:ElasticTraceEnabled"] ?? "false");
-            TraceType = configuration["Logging:ElasticTraceType"] ?? ApiConstants.TypeRequest;
 
             SetDefaultLevel(logger, logLevel);
             ConfigureSerializationFilters(configuration);

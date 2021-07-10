@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Elastic.Apm;
-using Elastic.Apm.Api;
 using Enyim.Caching;
 using Enyim.Caching.Memcached;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +17,6 @@ namespace Infra.Net.CacheManager.Memcached
         private readonly ILogger _logger;
         private readonly IMemcachedClient _client;
         private int _cacheTimeout;
-        public bool TraceEnabled { get; set; }
-        public string TraceType { get; set; }
 
         private readonly string _configSection;
         //private MemcachedClient _client;
@@ -50,9 +46,6 @@ namespace Infra.Net.CacheManager.Memcached
         private void Setup()
         {
             _cacheTimeout = int.Parse(_configuration[$"{_configSection}:CacheTimeout"] ?? "1");
-            TraceEnabled = Convert.ToBoolean(_configuration["Logging:ElasticTraceEnabled"] ?? "false") &&
-                           Convert.ToBoolean(_configuration["Logging:ElasticCacheTraceEnabled"] ?? "false");
-            TraceType = _configuration["Logging:ElasticTraceType"] ?? ApiConstants.TypeRequest;
         }
         private TimeSpan GetExpiration(TimeSpan? expireTime, TimeSpan? idleTime) => expireTime ?? idleTime ?? TimeSpan.FromHours(1);
         private void Log(LogEventLevel level, string msg, Exception ex = null, string args = null)
@@ -69,45 +62,34 @@ namespace Infra.Net.CacheManager.Memcached
 #if DEBUG
             Setup();
 #endif
-            async Task<bool> DoTouch()
+            cancellationToken.ThrowIfCancellationRequested();
+            try
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                try
+                var touchTask = _client.TouchAsync(GenerateKey(key, compositeKey), GetExpiration(expireTime, idleTime));
+
+                if (!touchTask.Wait(_cacheTimeout * 1000, cancellationToken))
                 {
-                    var touchTask = _client.TouchAsync(GenerateKey(key, compositeKey), GetExpiration(expireTime, idleTime));
-
-                    if (!touchTask.Wait(_cacheTimeout * 1000, cancellationToken))
-                    {
-                        Log(LogEventLevel.Verbose, "[CACHEMISS]:Timeout");
-                        return false;
-                    }
-
-                    var result = await touchTask;
-
-                    if (result.Success)
-                    {
-                        Log(LogEventLevel.Verbose, "[CACHEHIT]");
-                        return result.Success;
-                    }
-
-                    Log(LogEventLevel.Verbose, "[CACHEMISS]:Miss");
-                }
-                catch (Exception ex)
-                {
-                    _logger?.Verbose(ex, "[CACHEMISS]:Exception");
+                    Log(LogEventLevel.Verbose, "[CACHEMISS]:Timeout");
+                    return false;
                 }
 
-                return false;
+                var result = await touchTask;
+
+                if (result.Success)
+                {
+                    Log(LogEventLevel.Verbose, "[CACHEHIT]");
+                    return result.Success;
+                }
+
+                Log(LogEventLevel.Verbose, "[CACHEMISS]:Miss");
+            }
+            catch (Exception ex)
+            {
+                _logger?.Verbose(ex, "[CACHEMISS]:Exception");
             }
 
+            return false;
 
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return await DoTouch();
-
-            return await Agent.Tracer
-                .CurrentTransaction.CaptureSpan(
-                    $"MemcachedManager::Touch", TraceType, async (t) =>
-                        await DoTouch(), ApiConstants.SubtypeHttp, ApiConstants.ActionExec);
         }
 
         public override bool Delete(string id, string key = null, IEnumerable<string> compositeKey = null,
@@ -133,20 +115,9 @@ namespace Infra.Net.CacheManager.Memcached
             Setup();
 #endif
 
-            Task<bool> DoPut()
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                return _client.StoreAsync(StoreMode.Set, GenerateKey(key, compositeKey), value,
-                    GetExpiration(expireTime, idleTime));
-            }
-
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return DoPut();
-
-            return Agent.Tracer
-                .CurrentTransaction.CaptureSpan(
-                    $"MemcachedManager::Put", TraceType, async (t) =>
-                        await DoPut(), ApiConstants.SubtypeHttp, ApiConstants.ActionExec);
+            cancellationToken.ThrowIfCancellationRequested();
+            return _client.StoreAsync(StoreMode.Set, GenerateKey(key, compositeKey), value,
+                GetExpiration(expireTime, idleTime));
         }
 
 
@@ -162,44 +133,33 @@ namespace Infra.Net.CacheManager.Memcached
 #if DEBUG
             Setup();
 #endif
-            async Task<T> DoGet()
+            cancellationToken.ThrowIfCancellationRequested();
+            try
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                try
+                var getTask = _client.GetAsync<T>(GenerateKey(key, compositeKey));
+
+                if (!getTask.Wait(_cacheTimeout * 1000, cancellationToken))
                 {
-                    var getTask = _client.GetAsync<T>(GenerateKey(key, compositeKey));
-
-                    if (!getTask.Wait(_cacheTimeout * 1000, cancellationToken))
-                    {
-                        Log(LogEventLevel.Verbose, "[CACHEMISS]:Timeout");
-                        return null;
-                    }
-
-                    var result = await getTask;
-
-                    if (result.Success)
-                    {
-                        Log(LogEventLevel.Verbose, "[CACHEHIT]");
-                        return result.Value;
-                    }
-
-                    Log(LogEventLevel.Verbose, "[CACHEMISS]:Miss");
-                }
-                catch (Exception ex)
-                {
-                    _logger?.Verbose(ex, "[CACHEMISS]:Exception");
+                    Log(LogEventLevel.Verbose, "[CACHEMISS]:Timeout");
+                    return null;
                 }
 
-                return null;
+                var result = await getTask;
+
+                if (result.Success)
+                {
+                    Log(LogEventLevel.Verbose, "[CACHEHIT]");
+                    return result.Value;
+                }
+
+                Log(LogEventLevel.Verbose, "[CACHEMISS]:Miss");
+            }
+            catch (Exception ex)
+            {
+                _logger?.Verbose(ex, "[CACHEMISS]:Exception");
             }
 
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return await DoGet();
-
-            return await Agent.Tracer
-                .CurrentTransaction.CaptureSpan(
-                    $"MemcachedManager::Get", TraceType, async (t) =>
-                        await DoGet(), ApiConstants.SubtypeHttp, ApiConstants.ActionExec);
+            return null;
         }
         public override async Task<T> GetOrPut<T>(string id, string key, Func<Task<T>> factory, IEnumerable<string> compositeKey, TimeSpan? expireTime = null,
             TimeSpan? idleTime = null, CancellationToken cancellationToken = default) where T : class

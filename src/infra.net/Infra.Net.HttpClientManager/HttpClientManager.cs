@@ -7,8 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Elastic.Apm;
-using Elastic.Apm.Api;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -32,8 +30,6 @@ namespace Infra.Net.HttpClientManager
 #else
         public string DefaultBaseUrl { get; }
 #endif
-        public bool TraceEnabled { get; set; }
-        public string TraceType { get; set; }
 
         public JsonSerializerSettings ApplicationJsonProps { get; }
 
@@ -75,9 +71,6 @@ namespace Infra.Net.HttpClientManager
 
             SuppressExceptionSerialization = bool.Parse(_configuration["AppConfig:SuppressExceptionSerialization"] ?? "false");
 
-            TraceEnabled = Convert.ToBoolean(configuration["Logging:ElasticTraceEnabled"] ?? "false") &&
-                           Convert.ToBoolean(configuration["Logging:ElasticHttpManagerTraceEnabled"] ?? "false");
-            TraceType = configuration["Logging:ElasticTraceType"] ?? ApiConstants.TypeRequest;
         }
 
         private void Log(LogEventLevel level, string msg, Exception ex = null)
@@ -97,24 +90,13 @@ namespace Infra.Net.HttpClientManager
         {
             policyWrap ??= _defaultPolicyWrap;
 
-            Task<HttpResponseMessage> PrepareAction()
-            {
-                if (policyWrap != null)
-                    return policyWrap.ExecuteAsync<HttpResponseMessage>(() => PerformAction(httpMethod, resource, obj, headers,
-                        baseUrl, @params,
-                        throwOnError, cancellationToken, mediaType, mediaTransform));
+            if (policyWrap != null)
+                return policyWrap.ExecuteAsync<HttpResponseMessage>(() => PerformAction(httpMethod, resource, obj, headers,
+                    baseUrl, @params,
+                    throwOnError, cancellationToken, mediaType, mediaTransform));
 
-                return PerformAction(httpMethod, resource, obj, headers, baseUrl, @params,
-                    throwOnError, cancellationToken, mediaType, mediaTransform);
-            }
-
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return PrepareAction();
-
-            return Agent.Tracer
-                .CurrentTransaction.CaptureSpan(
-                    $"HttpManager::PrepareRequest", TraceType, async (t) =>
-                        await PrepareAction(), ApiConstants.SubtypeHttp, ApiConstants.ActionExec);
+            return PerformAction(httpMethod, resource, obj, headers, baseUrl, @params,
+                throwOnError, cancellationToken, mediaType, mediaTransform);
         }
 
         private async Task<HttpResponseMessage> PerformAction(
@@ -205,20 +187,7 @@ namespace Infra.Net.HttpClientManager
             return requestContent;
         }
 
-        private Task<HttpResponseMessage> SendAsync(string baseAddress, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
-        {
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return ExecuteSend(baseAddress, requestMessage, cancellationToken);
-             
-            return Agent.Tracer
-                    .CurrentTransaction.CaptureSpan(
-                        $"HttpManager::Send", TraceType, (t) =>
-                            ExecuteSend(baseAddress, requestMessage, cancellationToken),
-                        ApiConstants.SubtypeHttp, ApiConstants.ActionExec);
-        }
-
-        private async Task<HttpResponseMessage> ExecuteSend(string baseAddress, HttpRequestMessage requestMessage,
-            CancellationToken cancellationToken)
+        private async Task<HttpResponseMessage> SendAsync(string baseAddress, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
         {
             Log(LogEventLevel.Debug, $"PreparingHttpClient: {baseAddress}");
             cancellationToken.ThrowIfCancellationRequested();

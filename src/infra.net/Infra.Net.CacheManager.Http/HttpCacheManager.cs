@@ -4,8 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Elastic.Apm;
-using Elastic.Apm.Api;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Serilog;
@@ -23,8 +21,6 @@ namespace Infra.Net.CacheManager.Http
         private readonly ILogger _logger;
         private string _prefixUrl;
         private int _cacheTimeout;
-        public bool TraceEnabled { get; set; }
-        public string TraceType { get; set; }
 
         public static readonly JsonSerializerSettings DefaultJsonProps = new()
         {
@@ -66,23 +62,12 @@ namespace Infra.Net.CacheManager.Http
 #if DEBUG
             Setup();
 #endif
-            Task<HttpResponseMessage> DoTouch()
-            {
-                return _httpClientManager.GetAsync(
-                    resource: $"{_prefixUrl}{Urlfy(id)}/{GenerateKey(key, compositeKey)}",
-                    headers: GetRequestHeaders(expireTime, idleTime),
-                    baseUrl: ServerPool.Next().ToString(),
-                    mediaType: "text/plain",
-                    cancellationToken: cancellationToken);
-            }
-
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return DoTouch();
-
-            return Agent.Tracer
-                .CurrentTransaction.CaptureSpan(
-                    $"HttpCacheManager::Touch", TraceType, async (t) =>
-                        await DoTouch(), ApiConstants.SubtypeHttp, ApiConstants.ActionExec);
+            return _httpClientManager.GetAsync(
+                resource: $"{_prefixUrl}{Urlfy(id)}/{GenerateKey(key, compositeKey)}",
+                headers: GetRequestHeaders(expireTime, idleTime),
+                baseUrl: ServerPool.Next().ToString(),
+                mediaType: "text/plain",
+                cancellationToken: cancellationToken);
         }
 
         public override async Task<T> GetOrPut<T>(string id, string key, Func<Task<T>> factory, IEnumerable<string> compositeKey = null,
@@ -138,48 +123,37 @@ namespace Infra.Net.CacheManager.Http
 #if DEBUG
             Setup();
 #endif
-            async Task<string> DoGet()
+            try
             {
-                try
+                var getTask = _httpClientManager.GetAsync(
+                    resource: $"{_prefixUrl}{Urlfy(id)}/{GenerateKey(key, compositeKey)}",
+                    headers: GetRequestHeaders(expireTime, idleTime),
+                    baseUrl: ServerPool.Next().ToString(),
+                    mediaType: "text/plain",
+                    cancellationToken: cancellationToken);
+
+                if (!getTask.Wait(_cacheTimeout * 1000, cancellationToken))
                 {
-                    var getTask = _httpClientManager.GetAsync(
-                        resource: $"{_prefixUrl}{Urlfy(id)}/{GenerateKey(key, compositeKey)}",
-                        headers: GetRequestHeaders(expireTime, idleTime),
-                        baseUrl: ServerPool.Next().ToString(),
-                        mediaType: "text/plain",
-                        cancellationToken: cancellationToken);
-
-                    if (!getTask.Wait(_cacheTimeout * 1000, cancellationToken))
-                    {
-                        Log(LogEventLevel.Verbose, "[CACHEMISS]:Timeout");
-                        return string.Empty;
-                    }
-
-                    var response = await getTask;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var result = await response.Content.ReadAsStringAsync(cancellationToken);
-                        Log(LogEventLevel.Verbose, "[CACHEHIT]", args: result);
-                        return result;
-                    }
-
-                    Log(LogEventLevel.Verbose, "[CACHEMISS]:Miss");
-                }
-                catch (Exception ex)
-                {
-                    _logger?.Verbose(ex, "[CACHEMISS]:Exception");
+                    Log(LogEventLevel.Verbose, "[CACHEMISS]:Timeout");
+                    return string.Empty;
                 }
 
-                return string.Empty;
+                var response = await getTask;
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync(cancellationToken);
+                    Log(LogEventLevel.Verbose, "[CACHEHIT]", args: result);
+                    return result;
+                }
+
+                Log(LogEventLevel.Verbose, "[CACHEMISS]:Miss");
+            }
+            catch (Exception ex)
+            {
+                _logger?.Verbose(ex, "[CACHEMISS]:Exception");
             }
 
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return await DoGet();
-
-            return await Agent.Tracer
-                .CurrentTransaction.CaptureSpan(
-                    $"HttpCacheManager::Get", TraceType, async (t) =>
-                        await DoGet(), ApiConstants.SubtypeHttp, ApiConstants.ActionExec);
+            return string.Empty;
         }
 
         public override async Task<T> Get<T>(
@@ -216,37 +190,25 @@ namespace Infra.Net.CacheManager.Http
             Setup();
 #endif
 
-            Task<HttpResponseMessage> DoPut()
+            string jsonValue = null;
+            try
             {
-                string jsonValue = null;
-                try
-                {
-                    //I have to convert the object now, because text/plain does not convert to json on httpClientManager. But if it's already a string, I'm not going to serialize
-                    if (!(value is string))
-                        jsonValue = JsonConvert.SerializeObject(value, jsonProps ?? DefaultJsonProps);
-                }
-                catch (Exception ex)
-                {
-                    Log(LogEventLevel.Debug, "Error deserializing object", ex, value.ToString());
-                }
-
-                return _httpClientManager.PutAsync(
-                    resource: $"{_prefixUrl}{Urlfy(id)}/{GenerateKey(key, compositeKey)}",
-                    obj: jsonValue ?? value,
-                    headers: GetRequestHeaders(expireTime, idleTime, performAsync),
-                    baseUrl: ServerPool.Next().ToString(),
-                    mediaType: "text/plain",
-                    cancellationToken: cancellationToken);
+                //I have to convert the object now, because text/plain does not convert to json on httpClientManager. But if it's already a string, I'm not going to serialize
+                if (!(value is string))
+                    jsonValue = JsonConvert.SerializeObject(value, jsonProps ?? DefaultJsonProps);
+            }
+            catch (Exception ex)
+            {
+                Log(LogEventLevel.Debug, "Error deserializing object", ex, value.ToString());
             }
 
-
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return DoPut();
-
-            return Agent.Tracer
-                .CurrentTransaction.CaptureSpan(
-                    $"HttpCacheManager::Put", TraceType, async (t) =>
-                        await DoPut(), ApiConstants.SubtypeHttp, ApiConstants.ActionExec);
+            return _httpClientManager.PutAsync(
+                resource: $"{_prefixUrl}{Urlfy(id)}/{GenerateKey(key, compositeKey)}",
+                obj: jsonValue ?? value,
+                headers: GetRequestHeaders(expireTime, idleTime, performAsync),
+                baseUrl: ServerPool.Next().ToString(),
+                mediaType: "text/plain",
+                cancellationToken: cancellationToken);
         }
         public override void Delete(string id, string key = null, IEnumerable<string> compositeKey = null, CancellationToken cancellationToken = default)
         {
@@ -258,22 +220,11 @@ namespace Infra.Net.CacheManager.Http
 #if DEBUG
             Setup();
 #endif
-            Task<HttpResponseMessage> DoDelete()
-            {
-                return _httpClientManager.DeleteAsync(
-                    resource: $"{_prefixUrl}{Urlfy(id)}{GenerateDeleteKey(key, compositeKey)}",
-                    headers: GetRequestHeaders(null, null, performAsync),
-                    baseUrl: ServerPool.Next().ToString(),
-                    cancellationToken: cancellationToken);
-            }
-
-            if (!TraceEnabled || Agent.Tracer?.CurrentTransaction == null)
-                return DoDelete();
-
-            return Agent.Tracer
-                .CurrentTransaction.CaptureSpan(
-                    $"HttpCacheManager::Delete", TraceType, async (t) =>
-                        await DoDelete(), ApiConstants.SubtypeHttp, ApiConstants.ActionExec);
+            return _httpClientManager.DeleteAsync(
+                resource: $"{_prefixUrl}{Urlfy(id)}{GenerateDeleteKey(key, compositeKey)}",
+                headers: GetRequestHeaders(null, null, performAsync),
+                baseUrl: ServerPool.Next().ToString(),
+                cancellationToken: cancellationToken);
         }
 
         private Dictionary<string, string> GetRequestHeaders(TimeSpan? expireTime, TimeSpan? idleTime, bool? performAsync = null)
@@ -303,11 +254,6 @@ namespace Infra.Net.CacheManager.Http
 
             var servers = _configuration[$"{_configSection}:Servers"] ?? string.Empty;
             var httpSchema = _configuration[$"{_configSection}:Schema"] ?? "http";
-
-            TraceEnabled = Convert.ToBoolean(_configuration["Logging:ElasticTraceEnabled"] ?? "false") &&
-                           Convert.ToBoolean(_configuration["Logging:ElasticCacheTraceEnabled"] ?? "false");
-            TraceType = _configuration["Logging:ElasticTraceType"] ?? ApiConstants.TypeRequest;
-
 #if DEBUG
             if (DefaultHeaders.ContainsKey("Authorization"))
                 DefaultHeaders.Remove("Authorization");

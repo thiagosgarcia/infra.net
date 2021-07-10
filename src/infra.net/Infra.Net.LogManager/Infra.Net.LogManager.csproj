@@ -34,9 +34,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
-    <PackageReference Include="elastic.apm" Version="1.8.0" />
-    <PackageReference Include="elastic.apm.aspnetcore" Version="1.8.0" />
-    <PackageReference Include="elastic.apm.netcoreall" Version="1.8.0" />
   </ItemGroup>
 
 </Project>

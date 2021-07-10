@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="elastic.apm" Version="1.8.0" />
-    <PackageReference Include="elastic.apm.aspnetcore" Version="1.8.0" />
-    <PackageReference Include="elastic.apm.netcoreall" Version="1.8.0" />
-    <PackageReference Include="ElasticApm.MongoDB" Version="1.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.1" />
     <PackageReference Include="Infra.Net.Helpers" Version="0.0.1" />
     <PackageReference Include="Infra.Net.Extensions" Version="0.0.1" />

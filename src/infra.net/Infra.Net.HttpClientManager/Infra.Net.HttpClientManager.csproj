@@ -28,9 +28,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="elastic.apm" Version="1.8.0" />
-    <PackageReference Include="elastic.apm.aspnetcore" Version="1.8.0" />
-    <PackageReference Include="elastic.apm.netcoreall" Version="1.8.0" />
   </ItemGroup>
 
 </Project>

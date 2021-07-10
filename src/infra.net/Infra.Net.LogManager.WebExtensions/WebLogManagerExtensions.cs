@@ -1,5 +1,4 @@
-﻿using Elastic.Apm.SerilogEnricher;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -15,7 +14,6 @@ namespace Infra.Net.LogManager.WebExtensions
                 .AddSingleton<ILogger>(x => new LoggerConfiguration()
                 .ReadFrom.Configuration((IConfiguration)x.GetService(typeof(IConfiguration)))
                 .Enrich.With(new CorrelationIdEnricher((IHttpContextAccessor)x.GetService(typeof(IHttpContextAccessor))))
-                .Enrich.WithElasticApmCorrelationInfo()
                 .CreateLogger());
         }
     }

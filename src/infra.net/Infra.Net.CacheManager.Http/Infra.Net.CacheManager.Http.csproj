@@ -27,9 +27,6 @@
     <PackageReference Include="Infra.Net.HttpClientManager" Version="0.0.1" />
     <PackageReference Include="System.Data.HashFunction.CityHash" Version="2.0.0" />
     <PackageReference Include="System.Data.HashFunction.Core" Version="2.0.0" />
-    <PackageReference Include="elastic.apm" Version="1.8.0" />
-    <PackageReference Include="elastic.apm.aspnetcore" Version="1.8.0" />
-    <PackageReference Include="elastic.apm.netcoreall" Version="1.8.0" />
   </ItemGroup>
 
 </Project>
