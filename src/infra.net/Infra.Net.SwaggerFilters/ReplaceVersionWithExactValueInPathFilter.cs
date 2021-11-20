@@ -1,18 +1,14 @@
-﻿using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
+﻿namespace Infra.Net.SwaggerFilters;
 
-namespace Infra.Net.SwaggerFilters
+public class ReplaceVersionWithExactValueInPathFilter : IDocumentFilter
 {
-    public class ReplaceVersionWithExactValueInPathFilter : IDocumentFilter
+    public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
     {
-        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+        var paths = new OpenApiPaths();
+        foreach (var path in swaggerDoc.Paths)
         {
-            var paths = new OpenApiPaths();
-            foreach (var path in swaggerDoc.Paths)
-            {
-                paths.Add(path.Key.Replace("v{version}", swaggerDoc.Info.Version), path.Value);
-            }
-            swaggerDoc.Paths = paths;
+            paths.Add(path.Key.Replace("v{version}", swaggerDoc.Info.Version), path.Value);
         }
+        swaggerDoc.Paths = paths;
     }
 }

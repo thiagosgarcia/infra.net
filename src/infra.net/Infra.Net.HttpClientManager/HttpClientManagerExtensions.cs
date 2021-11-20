@@ -4,7 +4,7 @@ public static class HttpClientManagerExtensions
 {
     public static void ConfigureHttpClient(this IServiceCollection services, IConfiguration config, string defaultBaseUrlConfig)
     {
-        services.AddHttpClient(string.IsNullOrEmpty(defaultBaseUrlConfig) ? "DefaultBaseUrl" : config[defaultBaseUrlConfig])
+        services.AddHttpClient(string.IsNullOrWhiteSpace(defaultBaseUrlConfig) || string.IsNullOrWhiteSpace(config[defaultBaseUrlConfig]) ? "DefaultBaseUrl" : config[defaultBaseUrlConfig])
             .ConfigurePrimaryHttpMessageHandler(
                 _ => ProxyHelper.CreateHttpClientHandler(config, defaultBaseUrlConfig));
     }

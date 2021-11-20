@@ -1,13 +1,10 @@
-﻿using System;
-using Infra.Net.Extensions.Helpers.Enum;
+﻿
+namespace Infra.Net.Extensions.Extensions;
 
-namespace Infra.Net.Extensions.Extensions
+public static class EnumExtensions
 {
-    public static class EnumExtensions
+    public static string GetDescription(this Enum value)
     {
-        public static string GetDescription(this Enum value)
-        {
-            return EnumHelper.GetDescription(value);
-        }
+        return EnumHelper.GetDescription(value);
     }
 }

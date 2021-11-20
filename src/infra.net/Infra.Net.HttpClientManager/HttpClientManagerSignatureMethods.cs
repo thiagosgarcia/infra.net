@@ -20,7 +20,7 @@ public partial class HttpClientManager
         CancellationToken cancellationToken = default, string mediaType = null,
         MediaTransformation mediaTransform = MediaTransformation.SerializeJson, IAsyncPolicy policyWrap = null)
     {
-        HttpResponseMessage result = await GetAsync(resource, @params, headers, baseUrl, cancellationToken, mediaType, mediaTransform, true, policyWrap);
+        var result = await GetAsync(resource, @params, headers, baseUrl, cancellationToken, mediaType, mediaTransform, true, policyWrap);
         return await result.Content.ReadAsStreamAsync();
     }
     public async Task<string> GetStringAsync(string resource, IDictionary<string, string> @params = null,
@@ -28,7 +28,7 @@ public partial class HttpClientManager
         CancellationToken cancellationToken = default, string mediaType = null,
         MediaTransformation mediaTransform = MediaTransformation.SerializeJson, IAsyncPolicy policyWrap = null)
     {
-        HttpResponseMessage result = await GetAsync(resource, @params, headers, baseUrl, cancellationToken, mediaType, mediaTransform, true, policyWrap);
+        var result = await GetAsync(resource, @params, headers, baseUrl, cancellationToken, mediaType, mediaTransform, true, policyWrap);
         return await result.Content.ReadAsStringAsync();
     }
     public async Task<T> GetAsync<T>(string resource, IDictionary<string, string> @params = null,
@@ -36,7 +36,7 @@ public partial class HttpClientManager
         CancellationToken cancellationToken = default, string mediaType = null,
         MediaTransformation mediaTransform = MediaTransformation.SerializeJson, IAsyncPolicy policyWrap = null) where T : class
     {
-        string result = await GetStringAsync(resource, @params, headers, baseUrl, cancellationToken, mediaType, mediaTransform, policyWrap);
+        var result = await GetStringAsync(resource, @params, headers, baseUrl, cancellationToken, mediaType, mediaTransform, policyWrap);
         return JsonConvert.DeserializeObject<T>(result, ApplicationJsonProps ?? DefaultJsonProps);
     }
 

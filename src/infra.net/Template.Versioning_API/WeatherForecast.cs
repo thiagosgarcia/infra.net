@@ -1,5 +1,3 @@
-using System;
-
 namespace Modelo.Versionamento_API.v1_0
 {
     public class WeatherForecast

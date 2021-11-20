@@ -1,6 +1,5 @@
-﻿namespace Infra.Net.LogManager.DbExtensions
+﻿namespace Infra.Net.LogManager.DbExtensions;
+
+public static class DbLogManagerExtensions
 {
-    public static class DbLogManagerExtensions
-    {
-    }
 }

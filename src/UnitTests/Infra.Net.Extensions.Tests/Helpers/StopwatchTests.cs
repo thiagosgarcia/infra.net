@@ -1,22 +1,20 @@
 ﻿using System.Diagnostics;
-using System.Threading;
 using Xunit;
 using Xunit2.Should;
 
-namespace Infra.Net.Extensions.Tests.Helpers
+namespace Infra.Net.Extensions.Tests.Helpers;
+
+public class StopwatchTests
 {
-    public class StopwatchTests
+
+    [Fact]
+    public void StopwatchMustReturnElapsedMillisContinuously()
     {
-
-        [Fact]
-        public void StopwatchMustReturnElapsedMillisContinuously()
-        {
-            var stopwatch = Stopwatch.StartNew();
-            Thread.Sleep(1000);
-            stopwatch.ElapsedMilliseconds.ShouldBeGreaterOrEqualTo(1000);
-            Thread.Sleep(500);
-            stopwatch.ElapsedMilliseconds.ShouldBeGreaterOrEqualTo(1500);
-        }
-
+        var stopwatch = Stopwatch.StartNew();
+        Thread.Sleep(1000);
+        stopwatch.ElapsedMilliseconds.ShouldBeGreaterOrEqualTo(1000);
+        Thread.Sleep(500);
+        stopwatch.ElapsedMilliseconds.ShouldBeGreaterOrEqualTo(1500);
     }
+
 }

@@ -1,32 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 
-namespace Infra.Net.LogManager.WebExtensions
+namespace Infra.Net.LogManager.WebExtensions;
+
+public static class WebLogHelper
 {
-    public static class WebLogHelper
+    private static readonly object _locker = new();
+
+    public static Guid GetCorrelationId(this IHttpContextAccessor contextAccessor)
     {
-        private static readonly object _locker = new();
+        StringValues headerValue = new();
+        if (contextAccessor.HttpContext?.Request.Headers.TryGetValue("CorrelationId", out headerValue) ?? false)
+            if (Guid.TryParse(headerValue, out var parsedGuid))
+                return parsedGuid;
 
-        public static Guid GetCorrelationId(this IHttpContextAccessor contextAccessor)
+        lock (_locker)
         {
-            StringValues headerValue = new();
-            if (contextAccessor.HttpContext?.Request.Headers.TryGetValue("CorrelationId", out headerValue) ?? false)
-                if (Guid.TryParse(headerValue, out var parsedGuid))
-                    return parsedGuid;
-
-            lock (_locker)
-            {
-                var headerCorrId = Guid.NewGuid();
-                SetCorrelationIdHeaders(contextAccessor, headerCorrId);
-                return headerCorrId;
-            }
+            var headerCorrId = Guid.NewGuid();
+            SetCorrelationIdHeaders(contextAccessor, headerCorrId);
+            return headerCorrId;
         }
+    }
 
-        private static void SetCorrelationIdHeaders(IHttpContextAccessor contextAccessor, Guid guid)
-        {
-            contextAccessor.HttpContext?.Request.Headers.TryAdd("CorrelationId", guid.ToString());
-        }
+    private static void SetCorrelationIdHeaders(IHttpContextAccessor contextAccessor, Guid guid)
+    {
+        contextAccessor.HttpContext?.Request.Headers.TryAdd("CorrelationId", guid.ToString());
     }
 }
