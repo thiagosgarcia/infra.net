@@ -1,9 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+	<LangVersion>latest</LangVersion>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<ImplicitUsings>enable</ImplicitUsings>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <Description>HttpClientManager - abstração de chamadas http com uso de HttpClientFactory e Polly</Description>
@@ -18,6 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/thiagosgarcia/infra.net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/thiagosgarcia/infra.net</RepositoryUrl>
+	 
   </PropertyGroup>
 
   <ItemGroup>

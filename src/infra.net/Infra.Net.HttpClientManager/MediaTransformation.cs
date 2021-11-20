@@ -1,9 +1,8 @@
-﻿namespace Infra.Net.HttpClientManager
+﻿namespace Infra.Net.HttpClientManager;
+
+public enum MediaTransformation
 {
-    public enum MediaTransformation
-    {
-        None,
-        SerializeJson,
-        UrlEncoded
-    }
+    None,
+    SerializeJson,
+    UrlEncoded
 }
