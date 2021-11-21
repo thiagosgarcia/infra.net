@@ -9,9 +9,9 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <Description>MemcachedManager - Extensão de Memcache</Description>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.0.0</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
     <AssemblyName />
     <Authors>@thiagosgarcia</Authors>
     <PackageReleaseNotes></PackageReleaseNotes>
@@ -23,13 +23,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Infra.Net.CacheManager" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="EnyimMemcachedCore" Version="2.5.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Infra.Net.CacheManager\Infra.Net.CacheManager.csproj" />
   </ItemGroup>
 
 </Project>

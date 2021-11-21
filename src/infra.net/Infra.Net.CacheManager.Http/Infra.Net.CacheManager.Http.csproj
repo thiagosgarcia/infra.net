@@ -9,9 +9,9 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <Description>HttpCacheManager - Extensão de CacheManager para HTTP</Description>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.0.0</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
     <AssemblyName />
     <Authors>@thiagosgarcia</Authors>
     <PackageReleaseNotes></PackageReleaseNotes>
@@ -23,15 +23,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Infra.Net.CacheManager" Version="1.0.1" />
+    <PackageReference Include="Infra.Net.Extensions" Version="1.0.1" />
+    <PackageReference Include="Infra.Net.HttpClientManager" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     <PackageReference Include="System.Data.HashFunction.CityHash" Version="2.0.0" />
     <PackageReference Include="System.Data.HashFunction.Core" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Infra.Net.CacheManager\Infra.Net.CacheManager.csproj" />
-    <ProjectReference Include="..\Infra.Net.Extensions\Infra.Net.Extensions.csproj" />
-    <ProjectReference Include="..\Infra.Net.HttpClientManager\Infra.Net.HttpClientManager.csproj" />
   </ItemGroup>
 
 </Project>
