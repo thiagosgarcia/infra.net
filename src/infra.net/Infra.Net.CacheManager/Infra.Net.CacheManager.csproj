@@ -23,9 +23,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Infra.Net.Extensions" Version="1.0.1" />
     <PackageReference Include="System.Data.HashFunction.CityHash" Version="2.0.0" />
     <PackageReference Include="System.Data.HashFunction.Core" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infra.Net.Extensions\Infra.Net.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

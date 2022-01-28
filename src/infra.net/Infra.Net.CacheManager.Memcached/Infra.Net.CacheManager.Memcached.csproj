@@ -23,10 +23,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Infra.Net.CacheManager" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="EnyimMemcachedCore" Version="2.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infra.Net.CacheManager\Infra.Net.CacheManager.csproj" />
   </ItemGroup>
 
 </Project>

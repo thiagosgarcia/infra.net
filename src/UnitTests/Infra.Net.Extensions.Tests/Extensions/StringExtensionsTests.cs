@@ -1,12 +1,36 @@
 ﻿using System.Globalization;
 using Infra.Net.Extensions.Extensions;
+using Newtonsoft.Json;
 using Xunit;
 using Xunit2.Should;
 
 namespace Infra.Net.Extensions.Tests.Extensions;
 
+class Test
+{
+    public string str { get; set; }
+}
+
 public class StringExtensionTests
 {
+    [Theory]
+    [InlineData("{\"str\":\"test\"}")]
+    [InlineData("{\"other\":\"test\"}")]
+    [InlineData("{}")]
+    [InlineData(null)]
+
+    public void testeste(string word)
+    {
+        JsonConvert.DeserializeObject<Test>(word);
+    }
+
+    [Fact]
+
+public void testestea()
+{
+        JsonConvert.DeserializeObject<Test>(null);
+    }
+
     [Theory]
     [InlineData("CamelHump", "camelhump")]
     [InlineData("CamelHump", "camelhuMP")]

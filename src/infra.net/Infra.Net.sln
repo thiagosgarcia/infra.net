@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30621.155
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Net.SwaggerFilters", "Infra.Net.SwaggerFilters\Infra.Net.SwaggerFilters.csproj", "{869E3969-641D-4C4A-9082-529DEA639277}"
 EndProject
@@ -51,9 +51,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Net.CacheManager.Memc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Net.Extensions.Tests", "..\UnitTests\Infra.Net.Extensions.Tests\Infra.Net.Extensions.Tests.csproj", "{AC74EFBB-556F-4497-9428-0BDA18F95A14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Net.DomainExtensions", "Infra.Net.DomainExtensions\Infra.Net.DomainExtensions.csproj", "{FDA5A347-A5E6-4880-BF01-1073AE5611CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Net.DomainExtensions", "Infra.Net.DomainExtensions\Infra.Net.DomainExtensions.csproj", "{FDA5A347-A5E6-4880-BF01-1073AE5611CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Net.DomainExtensions.Tests", "..\UnitTests\Infra.Net.DomainExtensions.Tests\Infra.Net.DomainExtensions.Tests.csproj", "{446EE974-E681-4832-B85E-2B1883EAEC9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Net.DomainExtensions.Tests", "..\UnitTests\Infra.Net.DomainExtensions.Tests\Infra.Net.DomainExtensions.Tests.csproj", "{446EE974-E681-4832-B85E-2B1883EAEC9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Net.CacheManager.Redis", "Infra.Net.CacheManager.Redis\Infra.Net.CacheManager.Redis.csproj", "{5ADD1802-0852-463E-93A3-54B45CF32EB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +135,10 @@ Global
 		{446EE974-E681-4832-B85E-2B1883EAEC9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{446EE974-E681-4832-B85E-2B1883EAEC9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{446EE974-E681-4832-B85E-2B1883EAEC9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ADD1802-0852-463E-93A3-54B45CF32EB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ADD1802-0852-463E-93A3-54B45CF32EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ADD1802-0852-463E-93A3-54B45CF32EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ADD1802-0852-463E-93A3-54B45CF32EB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +167,7 @@ Global
 		{AC74EFBB-556F-4497-9428-0BDA18F95A14} = {1709A315-E0AF-4225-8E13-069CE4D34235}
 		{FDA5A347-A5E6-4880-BF01-1073AE5611CD} = {63B83451-80E6-4E32-BDCB-AF7F27F3DEBB}
 		{446EE974-E681-4832-B85E-2B1883EAEC9F} = {1709A315-E0AF-4225-8E13-069CE4D34235}
+		{5ADD1802-0852-463E-93A3-54B45CF32EB4} = {29C31F9D-E5E3-4C2C-ADEA-E9C7F5240AFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {568E855C-3F6A-4AD5-B184-A1028F64681C}

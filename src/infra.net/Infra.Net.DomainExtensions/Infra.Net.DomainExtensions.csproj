@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include=" Infra.Net.Extensions " Version="1.0.1" />
+    <ProjectReference Include="..\Infra.Net.Extensions\Infra.Net.Extensions.csproj" />
   </ItemGroup>
 
 </Project>
