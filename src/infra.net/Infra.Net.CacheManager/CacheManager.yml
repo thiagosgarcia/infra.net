@@ -14,7 +14,7 @@ trigger:
       - src/infra.net/Infra.Net.CacheManager/Infra.Net.CacheManager.csproj
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-2022
 
 variables:
   buildConfiguration: 'Release'

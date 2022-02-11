@@ -14,7 +14,7 @@ trigger:
       - src/infra.net/Infra.Net.LogManager.WebExtensions/Infra.Net.LogManager.WebExtensions.csproj
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-2022
 
 variables:
   buildConfiguration: 'Release'

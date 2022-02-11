@@ -14,7 +14,7 @@ trigger:
       - src/infra.net/Infra.Net.DataAccess.MongoDb.WebHelpers/Infra.Net.DataAccess.MongoDb.WebHelpers.csproj
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-2022
 
 variables:
   buildConfiguration: 'Release'
