@@ -12,6 +12,7 @@ trigger:
   paths:
     include:
       - src/infra.net/Infra.Net.HttpClientManager/Infra.Net.HttpClientManager.csproj
+      - src/infra.net/Infra.Net.HttpClientManager/HttpClientManager.yml
 
 pool:
   vmImage: windows-2022

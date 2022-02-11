@@ -12,6 +12,7 @@ trigger:
   paths:
     include:
       - src/infra.net/Infra.Net.CacheManager.Memcached/Infra.Net.CacheManager.Memcached.csproj
+      - src/infra.net/Infra.Net.CacheManager.Memcached/CacheManager.Memcached.yml
 
 pool:
   vmImage: windows-2022

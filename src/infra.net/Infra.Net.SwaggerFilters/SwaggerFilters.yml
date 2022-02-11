@@ -11,8 +11,8 @@ trigger:
      - develop
   paths:
     include:
-      - src/infra.net/Infra.Net.SwaggerFilters/Infra.Net.SwaggerFilters.csproj
-
+      - src/infra.net/Infra.Net.SwaggerFilters/SwaggerFilters.yml
+      
 pool:
   vmImage: windows-2022
 

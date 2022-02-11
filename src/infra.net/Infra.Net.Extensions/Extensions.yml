@@ -11,8 +11,8 @@ trigger:
      - develop
   paths:
     include:
-      - src/infra.net/Infra.Net.Extensions/Infra.Net.Extensions.csproj
-
+      - src/infra.net/Infra.Net.Extensions/Extensions.yml
+      
 pool:
   vmImage: windows-2022
 

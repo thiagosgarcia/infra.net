@@ -11,8 +11,8 @@ trigger:
      - develop
   paths:
     include:
-      - src/infra.net/Infra.Net.LogManager/Infra.Net.LogManager.csproj
-
+      - src/infra.net/Infra.Net.LogManager/LogManager.yml
+      
 pool:
   vmImage: windows-2022
 

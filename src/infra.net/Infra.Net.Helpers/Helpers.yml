@@ -11,8 +11,8 @@ trigger:
      - develop
   paths:
     include:
-      - src/infra.net/Infra.Net.Helpers/Infra.Net.Helpers.csproj
-
+      - src/infra.net/Infra.Net.Helpers/Helpers.yml
+      
 pool:
   vmImage: windows-2022
 
