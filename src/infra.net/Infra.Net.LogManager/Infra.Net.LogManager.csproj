@@ -9,9 +9,9 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <Description>LogManager - abstração de implementação do SeriLog para gerenciamento de logs e trace de aplicações via injeção de dependência</Description>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.2</Version>
     <AssemblyName />
     <Authors>Thiago Garcia</Authors>
     <PackageReleaseNotes></PackageReleaseNotes>
