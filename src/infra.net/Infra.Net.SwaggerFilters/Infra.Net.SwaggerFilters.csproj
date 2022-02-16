@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,9 +9,9 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <Description>Filtros Swagger para uso geral. Swagger v5+</Description>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
-    <Version>1.0.2</Version>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
+    <Version>1.1.0</Version>
     <AssemblyName />
     <Authors>Thiago Garcia</Authors>
     <PackageReleaseNotes></PackageReleaseNotes>
