@@ -9,9 +9,9 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl></RepositoryUrl>
     <Description>MemcachedManager - Extensão de Memcache</Description>
-    <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0</FileVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.1</AssemblyVersion>
+    <FileVersion>1.1.1</FileVersion>
+    <Version>1.1.1</Version>
     <AssemblyName />
     <Authors>@thiagosgarcia</Authors>
     <PackageReleaseNotes></PackageReleaseNotes>

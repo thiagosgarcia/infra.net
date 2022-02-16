@@ -43,6 +43,6 @@ steps:
   displayName: 'push'
   inputs:
     command: 'push'
-    packagesToPush: '$(System.DefaultWorkingDirectory)/**/*.nupkg;!$(System.DefaultWorkingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(System.DefaultWorkingDirectory)/**/Infra.Net.LogManager.nupkg;!$(System.DefaultWorkingDirectory)/**/Infra.Net.LogManager.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget.org'
