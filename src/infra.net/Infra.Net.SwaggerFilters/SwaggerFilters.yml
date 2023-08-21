@@ -14,7 +14,7 @@ trigger:
       - src/infra.net/Infra.Net.SwaggerFilters/SwaggerFilters.yml
       
 pool:
-  vmImage: windows-2022
+  vmImage: ubuntu-latest
 
 variables:
   buildConfiguration: 'Release'
