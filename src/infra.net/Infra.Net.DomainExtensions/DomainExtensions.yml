@@ -44,6 +44,6 @@ steps:
   displayName: 'push'
   inputs:
     command: 'push'
-    packagesToPush: '$(System.DefaultWorkingDirectory)/**/Infra.Net.DomainExtensions.nupkg;!$(System.DefaultWorkingDirectory)/**/Infra.Net.DomainExtensions.symbols.nupkg'
+    packagesToPush: '$(System.DefaultWorkingDirectory)/**/Infra.Net.DomainExtensions.*.nupkg;!$(System.DefaultWorkingDirectory)/**/Infra.Net.DomainExtensions.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget.org'

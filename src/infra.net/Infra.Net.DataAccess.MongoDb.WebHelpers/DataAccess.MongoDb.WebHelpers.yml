@@ -44,6 +44,6 @@ steps:
   displayName: 'push'
   inputs:
     command: 'push'
-    packagesToPush: '$(System.DefaultWorkingDirectory)/**/Infra.Net.DataAccess.MongoDb.WebHelpers.nupkg;!$(System.DefaultWorkingDirectory)/**/Infra.Net.DataAccess.MongoDb.WebHelpers.symbols.nupkg'
+    packagesToPush: '$(System.DefaultWorkingDirectory)/**/Infra.Net.DataAccess.MongoDb.WebHelpers.*.nupkg;!$(System.DefaultWorkingDirectory)/**/Infra.Net.DataAccess.MongoDb.WebHelpers.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget.org'
