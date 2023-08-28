@@ -44,6 +44,6 @@ steps:
   displayName: 'push'
   inputs:
     command: 'push'
-    packagesToPush: '$(System.DefaultWorkingDirectory)/**/Infra.Net.CacheManager.Redis.nupkg;!$(System.DefaultWorkingDirectory)/**/Infra.Net.CacheManager.Redis.symbols.nupkg'
+    packagesToPush: '$(System.DefaultWorkingDirectory)/**/Infra.Net.CacheManager.Redis.*.nupkg;!$(System.DefaultWorkingDirectory)/**/Infra.Net.CacheManager.Http.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget.org'
