@@ -14,24 +14,6 @@ class Test
 public class StringExtensionTests
 {
     [Theory]
-    [InlineData("{\"str\":\"test\"}")]
-    [InlineData("{\"other\":\"test\"}")]
-    [InlineData("{}")]
-    [InlineData(null)]
-
-    public void testeste(string word)
-    {
-        JsonConvert.DeserializeObject<Test>(word);
-    }
-
-    [Fact]
-
-public void testestea()
-{
-        JsonConvert.DeserializeObject<Test>(null);
-    }
-
-    [Theory]
     [InlineData("CamelHump", "camelhump")]
     [InlineData("CamelHump", "camelhuMP")]
     [InlineData("CamelHump", "CAMELHUMP")]
