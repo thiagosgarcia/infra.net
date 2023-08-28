@@ -44,6 +44,6 @@ steps:
   displayName: 'push'
   inputs:
     command: 'push'
-    packagesToPush: '$(System.DefaultWorkingDirectory)/**/Infra.Net.CacheManager.Http.nupkg;!$(System.DefaultWorkingDirectory)/**/Infra.Net.CacheManager.Http.symbols.nupkg'
+    packagesToPush: '$(System.DefaultWorkingDirectory)/**/Infra.Net.CacheManager.Http.*.nupkg;!$(System.DefaultWorkingDirectory)/**/Infra.Net.CacheManager.Http.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget.org'
