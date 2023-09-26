@@ -6,7 +6,7 @@ using Xunit2.Should;
 
 namespace Infra.Net.Extensions.Tests.Extensions;
 
-class Test
+internal class Test
 {
     public string str { get; set; }
 }

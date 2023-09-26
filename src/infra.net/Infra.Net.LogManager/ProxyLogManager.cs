@@ -98,7 +98,7 @@ public class ProxyLogManager<T> : DispatchProxy
     private void SetDefaultLevel(ILogger logger, LogEventLevel logLevel)
     {
         DefaultLevel =
-            logger.IsEnabled(LogEventLevel.Verbose) ?
+            logger?.IsEnabled(LogEventLevel.Verbose) ?? true ?
                 LogEventLevel.Verbose :
                 logLevel;
     }

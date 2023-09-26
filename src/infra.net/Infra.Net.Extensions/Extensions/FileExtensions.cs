@@ -25,7 +25,7 @@ public static class FileExtensions
         string extension = null;
         var indexOfExtension = filename.LastIndexOf('.');
         if (indexOfExtension >= 0)
-            extension = filename.Substring(indexOfExtension);
+            extension = filename[indexOfExtension..];
         return extension;
     }
 

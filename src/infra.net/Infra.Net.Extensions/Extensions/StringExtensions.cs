@@ -133,17 +133,17 @@ public static class StringExtensions
         foreach (Match match in matches)
         {
             var pascal = match.Value;
-            value = value.Replace(pascal, $"{pascal.Substring(0, 1).ToUpper()}{pascal.Substring(1).ToLower()}");
+            value = value.Replace(pascal, $"{pascal[..1].ToUpper()}{pascal[1..].ToLower()}");
         }
 
-        value = $"{value.Substring(0, 1).ToUpper()}{value.Substring(1)}";
+        value = $"{value[..1].ToUpper()}{value[1..]}";
 
         matches = Regex.Matches(value, "([_]|[-]|[ ])([a-z])*");
         foreach (Match match in matches)
         {
             var pascal = match.Value;
             if (pascal.Length > 1)
-                value = value.Replace(pascal, $"{pascal.Substring(1, 1).ToUpper()}{pascal.Substring(2).ToLower()}");
+                value = value.Replace(pascal, $"{pascal.Substring(1, 1).ToUpper()}{pascal[2..].ToLower()}");
         }
 
         matches = Regex.Matches(value, "([_]|[-]|[ ])([A-Z])*");
@@ -151,13 +151,13 @@ public static class StringExtensions
         {
             var pascal = match.Value;
             if (pascal.Length > 1)
-                value = value.Replace(pascal, $"{pascal.Substring(1, 1).ToUpper()}{pascal.Substring(2).ToLower()}");
+                value = value.Replace(pascal, $"{pascal.Substring(1, 1).ToUpper()}{pascal[2..].ToLower()}");
         }
 
-        value = $"{value.Substring(0, 1).ToUpper()}{value.Substring(1)}";
+        value = $"{value[..1].ToUpper()}{value[1..]}";
 
         if (value.IsAllUpper())
-            value = $"{value.Substring(0, 1).ToUpper()}{value.Substring(1).ToLower()}";
+            value = $"{value[..1].ToUpper()}{value[1..].ToLower()}";
 
         value = Regex.Replace(value, "[_]|[-]|[ ]", "");
 
@@ -181,7 +181,11 @@ public static class StringExtensions
     {
         return string.IsNullOrEmpty(str);
     }
-
+    [DebuggerStepThrough]
+    public static bool IsNullOrWhiteSpace(this string str)
+    {
+        return string.IsNullOrWhiteSpace(str);
+    }
     [DebuggerStepThrough]
     public static bool IsEmpty(this string value)
     {

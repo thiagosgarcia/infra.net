@@ -30,17 +30,17 @@ public static class HttpClientConfiguration
         //services.AddScoped<EntityServiceHttpClientManager>();
         services.AddScopedWithLog<IEntityServiceHttpClientManager, EntityServiceHttpClientManager>();
 
-        //Para o HttpClientManager, utilizar esta única chamada...
+        //Para o HttpClientManager, utilizar esta Ãºnica chamada...
         //services.AddHttpClientManager(config, "FakeApi1");
 
-        //...ou a combinação das duas abaixo...
+        //...ou a combinaÃ§Ã£o das duas abaixo...
         //services.AddHttpClientManager(config, "FakeApi1", useHttpClientManagerHandler: false);
         //services.ConfigureHttpClient(config, "FakeApi1");
 
-        //...com políticas de repetição de chamadas...
+        //...com polÃ­ticas de repetiÃ§Ã£o de chamadas...
         services.AddHttpClientManager(config, "FakeApi1", useDefaultPolicyWrap: true);
 
-        //Con o ConfigureHttpClient é possível definir Handlers para qualquer endpoint, mesmo que não seja o default do HttpClientManager
+        //Con o ConfigureHttpClient Ã© possÃ­vel definir Handlers para qualquer endpoint, mesmo que nÃ£o seja o default do HttpClientManager
         //services.ConfigureHttpClient(config, "FakeApi1");
         //services.ConfigureHttpClient(config, "FakeApi2");
 

@@ -35,7 +35,7 @@ public partial class HttpClientManager : IHttpClientManager
 #if DEBUG
         _baseUrlConfig = baseUrlConfig;
 #endif
-        if (!baseUrlConfig.IsNullOrEmpty())
+        if (!baseUrlConfig.IsNullOrWhiteSpace())
             DefaultBaseUrl = configuration[baseUrlConfig];
 
         ApplicationJsonProps = jsonProps;
@@ -151,24 +151,32 @@ public partial class HttpClientManager : IHttpClientManager
                     requestContent = new StringContent(obj, Encoding.UTF8, mediaType);
                     break;
 
-                case { } when mediaTransform == MediaTransformation.None:
+                case "application/octet-stream" when obj is byte[] s:
+                    requestContent = new ByteArrayContent(s);
+                    break;
+
+                case "application/octet-stream":
+                    requestContent = new StreamContent(obj);
+                    break;
+
+                case not null when mediaTransform == MediaTransformation.None:
                     requestContent = new StringContent(obj, Encoding.UTF8, mediaType);
                     break;
 
-                case { } when mediaTransform == MediaTransformation.UrlEncoded:
+                case not null when mediaTransform == MediaTransformation.UrlEncoded:
                     //TODO tests
                     var dictionary = (IDictionary<string, string>)obj;
                     requestContent = new StringContent(dictionary.BuildResource().TrimStart('?'), Encoding.UTF8, mediaType);
                     break;
 
-                case { } when mediaTransform == MediaTransformation.SerializeJson:
+                case not null when mediaTransform == MediaTransformation.SerializeJson:
                 default:
                     var jsonParam = JsonConvert.SerializeObject(obj, ApplicationJsonProps ?? DefaultJsonProps);
                     requestContent = new StringContent(jsonParam, Encoding.UTF8, mediaType);
                     break;
             }
 
-            Log(LogEventLevel.Verbose, $"MediaType: {mediaType}");
+            Log(LogEventLevel.Verbose, $"MediaType: {mediaType} ContentType: {requestContent.GetType()} MediaTransform: {mediaTransform}");
             return requestContent;
         });
     }

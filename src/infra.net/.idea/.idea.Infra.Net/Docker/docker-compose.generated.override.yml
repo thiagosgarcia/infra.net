@@ -1,0 +1,43 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.4"
+services:
+  template.httpclient_api:
+    build:
+      context: "A:\\infra.net\\src\\infra.net"
+      dockerfile: "Template.HttpClient_API/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net6.0/Template.HttpClient_API.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      NUGET_PACKAGES: "C:\\Users\\thiag\\.nuget\\packages"
+      NUGET_FALLBACK_PACKAGES: "C:\\Users\\thiag\\.nuget\\packages"
+    image: "templatehttpclientapi:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\thiag\\.nuget\\packages:/root/.nuget/fallbackpackages"
+    - "A:\\infra.net\\src\\infra.net\\Template.HttpClient_API:/app:rw"
+    - "A:\\infra.net\\src\\infra.net:/src:rw"
+    working_dir: "/app"
+  template.versioning_api:
+    build:
+      context: "A:\\infra.net\\src\\infra.net"
+      dockerfile: "Template.Versioning_API/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net6.0/Template.Versioning_API.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      NUGET_PACKAGES: "C:\\Users\\thiag\\.nuget\\packages"
+      NUGET_FALLBACK_PACKAGES: "C:\\Users\\thiag\\.nuget\\packages"
+    image: "templateversioningapi:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\thiag\\.nuget\\packages:/root/.nuget/fallbackpackages"
+    - "A:\\infra.net\\src\\infra.net\\Template.Versioning_API:/app:rw"
+    - "A:\\infra.net\\src\\infra.net:/src:rw"
+    working_dir: "/app"

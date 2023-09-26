@@ -24,7 +24,7 @@ public static class CpfHelper
 
     public static bool Validar(string cpf)
     {
-        if (cpf == null || cpf.IsNullOrEmpty())
+        if (cpf.IsNullOrWhiteSpace())
             return false;
 
         var aux = cpf.ExtractNumbers().PadLeft(11, '0');
@@ -39,7 +39,7 @@ public static class CpfHelper
         }
 
         var pDigito = aux.Substring(9, 2);
-        aux = aux.Substring(0, 9);
+        aux = aux[..9];
 
         aux += GerarDigito(aux);
 
