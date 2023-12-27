@@ -6,10 +6,14 @@ public static class HttpExtensions
     public static string BuildResource(this IDictionary<string, string> @params)
     {
         var query = string.Empty;
-            
+
         if (@params != null && @params.Any())
             query += "?" + string.Join("&", @params.Where(x => x.Value != null)
-                .Select(x => $"{WebUtility.UrlEncode(x.Key)}={WebUtility.UrlEncode(x.Value)}"));
+                .Select(x =>
+                {
+                    var key = Regex.Replace(x.Key.Trim(), @"(\[\d+\]$)", "");
+                    return $"{WebUtility.UrlEncode(key)}={WebUtility.UrlEncode(x.Value)}";
+                }));
 
         return query;
     }
